@@ -1,3 +1,4 @@
-define(["angular"], function(ng) {
-  console.log(ng, 'hey from real "app" module');
+define(["angular", "lodash"], function(ng, _) {
+  console.log(ng, "ng dependency");
+  console.log(_, "lodash dependency");
 });
