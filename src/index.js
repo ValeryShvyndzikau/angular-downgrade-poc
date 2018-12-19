@@ -1,3 +1,10 @@
-require(["./app/index.js"], function() {
-  console.log("main app module has been loaded");
+"use strict";
+
+define(function(require) {
+  var angular = require("angular");
+  var appModule = require("./app/app.module.js");
+
+  angular.element(document).ready(function() {
+    angular.bootstrap(document, [appModule]);
+  });
 });
