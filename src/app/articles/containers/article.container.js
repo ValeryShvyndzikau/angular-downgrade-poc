@@ -34,6 +34,8 @@ define(function(require) {
 
         handleCollapseClick: function() {
           vm.expanded = false;
+          vm.mode = 'view';
+          vm.tmp_article = {}
         },
 
         handleEditClick: function() {
