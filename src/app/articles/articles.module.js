@@ -8,6 +8,8 @@ define(function(require) {
   var articlesService = require("./articles.service");
   var articlesContainer = require("./containers/articles.container");
   var articleContainer = require("./containers/article.container");
+  var articleForm = require("./components/article-form");
+
   var mock_articles = require("./mock_articles");
 
   return angular
@@ -15,5 +17,6 @@ define(function(require) {
     .factory("articlesService", articlesService)
     .value("mock_articles", mock_articles)
     .component("articlesContainer", articlesContainer)
-    .component("articleContainer", articleContainer).name;
+    .component("articleContainer", articleContainer)
+    .component("articleForm", articleForm).name;
 });

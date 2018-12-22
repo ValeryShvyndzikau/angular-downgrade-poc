@@ -5,90 +5,84 @@ define(function(require) {
 
   return {
     bindings: {
-      article: "<"
+      article: "<",
+      onUpdate: "&"
     },
 
-    //controllerAs: "articleCtrl",
-    // prettier-ignore
-    controller: function ArticleCtrl(
-      articlesService
-    ) {
+    controller: function Ctrl(articlesService) {
       "ngInject";
-  
+
       var vm = this;
 
-      
-      vm.mode = 'view';
-      vm.expanded = false;
-      vm.tmp_article = {}
+      /**
+       * @todo: Actually the logic is only about toggling/mode here (adjust/refactor flow)
+       */
+
+      //vm.mode = "view";
+      //vm.expanded = false;
 
       _.assign(vm, {
-  
-        $onInit: function() {
-          vm.article = _.clone(vm.article); // avoid mutations in parent scope
-        },
-
-        handleExpandClick: function() {
-          vm.expanded = true;
-        },
-
-        handleCollapseClick: function() {
-          vm.expanded = false;
-          vm.mode = 'view';
-          vm.tmp_article = {}
-        },
-
-        handleEditClick: function() {
-          vm.mode = 'edit';
-          vm.tmp_article = _.clone(vm.article)
-        },
-
-        handleSaveClick: function() {
-            // validate
-            // if all is OK
-            // call service
-            // update item in list somehow (event emitter | redux | direct call)
-            // move to default mode
-            vm.mode = 'view';
-            vm.article = _.clone(vm.tmp_article);
-          },
-
-        toggleExpanded: function() {
-          vm.expanded = !vm.expanded;
-        },
-
+        // test: function(a) {
+        //   console.log(vm.onUpdate({ article: a }), "a");
+        // }
+        // handleExpandClick: function() {
+        //   vm.expanded = true;
+        // },
+        // handleCollapseClick: function() {
+        //   vm.expanded = false;
+        //   vm.mode = "view";
+        // },
+        // handleEditClick: function() {
+        //   vm.mode = "edit";
+        // },
+        // handleUpdate: function(article) {
+        //   vm.mode = "view";
+        //   vm.onUpdate({ article });
+        // }
       });
-
     },
 
     template: `
-      <div>
+      <div ng-init="UIState = { expanded: false, mode: 'view' }">
         {{$ctrl.article.title}}
-        <div ng-switch="$ctrl.expanded">
-          <button ng-switch-default ng-click="$ctrl.handleExpandClick()">Expand</button>
-          <button ng-switch-when="true" ng-click="$ctrl.handleCollapseClick()">Collapse</button>
+        <div ng-switch="UIState.expanded">
+          <button ng-switch-default ng-click="UIState.expanded = true">Expand</button>
+          <button ng-switch-when="true" ng-click="UIState.expanded = false; UIState.mode = 'view'">Collapse</button>
         </div>
       </div>
-      <div ng-if="$ctrl.expanded">
-        <div ng-switch="$ctrl.mode">
+      <div ng-if="UIState.expanded">
+        <div ng-switch="UIState.mode">
 
           <div ng-switch-default>
-            <button ng-click="$ctrl.handleEditClick()">Edit</button>
+            <button ng-click="UIState.mode = 'edit'">Edit</button>
             <div>{{$ctrl.article.title}}</div>
             <div>{{$ctrl.article.author}}</div>
             <div>{{$ctrl.article.content}}</div>
           </div>
 
           <div ng-switch-when="edit">
-            <div><button ng-click="$ctrl.handleSaveClick()">Save</button></div>
-            <div><input ng-model="$ctrl.tmp_article.title"></div>
-            <div><input ng-model="$ctrl.tmp_article.author"></div>
-            <div><input ng-model="$ctrl.tmp_article.content"></div>
+            <article-form on-update="$ctrl.onUpdate({ article: article }); UIState.mode = 'view'" article="$ctrl.article"></article-form>
           </div>
-
         </div>
 
       </div>
     `
   };
 });
+
+/*
+
+<li ngRepeat={article in articles}>
+<toggler title, onToggle="$ctrl.doOptionalStuff()">
+  <article-container article="article" />
+    <article-view>
+    <article-edit>
+  // article will be destroyed by collapse and then opened in "view" mode, as we expecting
+</toggler>
+
+
+
+
+
+
+*/

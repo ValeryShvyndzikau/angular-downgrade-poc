@@ -3,6 +3,7 @@
 define(function() {
   return [
     {
+      id: 1,
       title: "Title 1",
       author: "Author 1",
       topic: "Topic 1",
@@ -12,6 +13,7 @@ define(function() {
       comments: []
     },
     {
+      id: 2,
       title: "Title 2",
       author: "Author 2",
       topic: "Topic 2",
