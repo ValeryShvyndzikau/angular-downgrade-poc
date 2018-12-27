@@ -1,8 +1,6 @@
 define(function() {
   "use strict";
 
-  var _ = require("lodash");
-
   return {
     bindings: {
       article: "<"
