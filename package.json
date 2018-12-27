@@ -63,6 +63,7 @@
   "dependencies": {
     "@uirouter/angularjs": "1.0.20",
     "angular": "^1.7.5",
+    "events": "^3.0.0",
     "lodash": "^4.17.11"
   }
 }

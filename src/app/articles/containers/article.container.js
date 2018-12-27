@@ -14,58 +14,64 @@ define(function(require) {
 
       var vm = this;
 
-      /**
-       * @todo: Actually the logic is only about toggling/mode here (adjust/refactor flow)
-       */
-
-      //vm.mode = "view";
-      //vm.expanded = false;
+      vm.isEditing = false;
 
       _.assign(vm, {
-        // test: function(a) {
-        //   console.log(vm.onUpdate({ article: a }), "a");
-        // }
-        // handleExpandClick: function() {
-        //   vm.expanded = true;
-        // },
-        // handleCollapseClick: function() {
-        //   vm.expanded = false;
-        //   vm.mode = "view";
-        // },
-        // handleEditClick: function() {
-        //   vm.mode = "edit";
-        // },
-        // handleUpdate: function(article) {
-        //   vm.mode = "view";
-        //   vm.onUpdate({ article });
-        // }
+        $onInit: function() {
+          console.log("Article was initialized");
+        },
+
+        $onDestroy() {
+          console.log("Article is going to be destroyed");
+        },
+
+        handleRemoveClick: function() {
+          articlesService.remove(vm.article.id);
+        },
+
+        handleCancelClick: function() {
+          vm.changeMode();
+        },
+
+        handleSaveClick: function() {
+          articlesService.update(vm.tmp_article);
+          vm.changeMode();
+        },
+
+        changeMode: function() {
+          vm.isEditing = !vm.isEditing;
+
+          if (vm.isEditing) {
+            vm.createTempArticle();
+          }
+        },
+
+        createTempArticle: function() {
+          vm.tmp_article = _.clone(vm.article);
+        }
       });
     },
 
     template: `
-      <div ng-init="UIState = { expanded: false, mode: 'view' }">
-        {{$ctrl.article.title}}
-        <div ng-switch="UIState.expanded">
-          <button ng-switch-default ng-click="UIState.expanded = true">Expand</button>
-          <button ng-switch-when="true" ng-click="UIState.expanded = false; UIState.mode = 'view'">Collapse</button>
-        </div>
-      </div>
-      <div ng-if="UIState.expanded">
-        <div ng-switch="UIState.mode">
-
-          <div ng-switch-default>
-            <button ng-click="UIState.mode = 'edit'">Edit</button>
-            <div>{{$ctrl.article.title}}</div>
-            <div>{{$ctrl.article.author}}</div>
-            <div>{{$ctrl.article.content}}</div>
-          </div>
-
-          <div ng-switch-when="edit">
-            <article-form on-update="$ctrl.onUpdate({ article: article }); UIState.mode = 'view'" article="$ctrl.article"></article-form>
-          </div>
-        </div>
-
-      </div>
+      <ui-toggler>
+        <ui-toggler-title>
+          {{$ctrl.article.title}} | <a ng-click="$ctrl.handleRemoveClick()"href="#">Remove</a>
+        </ui-toggler-title>
+        <ui-toggler-body>
+          <div ng-switch="$ctrl.isEditing">
+            <div ng-switch-when="false">
+              <button ng-click="$ctrl.changeMode()">Edit</button>
+              <article-view article="$ctrl.article" />
+            </div>
+            <div ng-switch-when="true">
+              <article-form
+                article="$ctrl.tmp_article"
+                on-cancel-click="$ctrl.handleCancelClick()"
+                on-save-click="$ctrl.handleSaveClick()"
+              />
+            </div>
+        </ui-toggler-body>
+      </ui-toggler>
     `
   };
 });

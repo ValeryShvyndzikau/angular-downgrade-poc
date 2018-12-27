@@ -1,24 +1,38 @@
-define(function() {
-  "use strict";
+define(function(require) {
+  var mock_articles = require("./mock_articles");
+  var EventEmitter = require("events");
 
-  var _ = require("lodash");
+  class ArticlesService extends EventEmitter {
+    constructor($q, $timeout) {
+      "ng-annotate";
+      super();
 
-  return function($q, $timeout, mock_articles) {
-    "ng-annotate";
+      this.$timeout = $timeout;
+      this.articles = [];
+    }
 
-    var articles = mock_articles;
-    return {
-      fetch: function() {
-        return $q(function(resolve, reject) {
-          $timeout(function() {
-            return resolve(mock_articles);
-          }, 1000);
-        });
-      },
+    get() {
+      this.$timeout(() => {
+        this.articles = mock_articles;
+        this.emitUpdate();
+      }, 1000);
+    }
 
-      update: function(article) {
-        // find
-      }
-    };
-  };
+    update(article) {
+      // prettier-ignore
+      this.articles = this.articles.map(a => (a.id === article.id ? article : a));
+      this.emitUpdate();
+    }
+
+    remove(articleId) {
+      this.articles = this.articles.filter(a => a.id !== articleId);
+      this.emitUpdate();
+    }
+
+    emitUpdate() {
+      this.emit("update", this.articles);
+    }
+  }
+
+  return ArticlesService;
 });

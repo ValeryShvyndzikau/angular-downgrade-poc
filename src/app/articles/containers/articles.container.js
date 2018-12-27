@@ -4,7 +4,6 @@ define(function(require) {
   var _ = require("lodash");
 
   return {
-    //controllerAs: "articlesCtrl",
     // prettier-ignore
     controller: function ArticlesCtrl(
         $q,
@@ -19,31 +18,26 @@ define(function(require) {
       _.assign(vm, {
 
         $onInit: function() {
+          // scope.applyAsync() // run updates manually
+          articlesService.on('update', (articles) => { vm.articles = articles })
           vm.fetchArticles();
         },
 
         fetchArticles: function() {
-          articlesService
-            .fetch()
-            .then(function(articles) {
-              vm.articles = articles;
-            })
+          articlesService.get();
         },
 
-        handleUpdate: function(article) {
-          //console.log(article, 'final article' )
-          vm.articles = vm.articles.map(a => a.id === article.id ? article : a);
-
-          //console.log(vm.articles, 'modified articles' )
+        handleAddClick: function() {
+          articleService.add();
         }
+
       });
     },
     template: `
-    <button ng-click="$ctrl.handleAdd(article)">ADD_ARTICLE</button>
+      <button ng-click="$ctrl.handleAddClick(article)">ADD_ARTICLE</button>
       <ul>Articles Container:
         <li ng-repeat="article in $ctrl.articles">
-          <a ng-click="$ctrl.handleRemove(article)"href="#">Remove</a>
-          <article-container on-update="$ctrl.handleUpdate(article)" article="article"></article-container>
+          <article-container article="article" />
         </li>
       </ul>
     `
