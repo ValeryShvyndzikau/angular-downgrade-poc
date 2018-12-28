@@ -30,15 +30,15 @@ define(function(require) {
         },
 
         handleCancelClick: function() {
-          vm.changeMode();
+          vm.toggleMode();
         },
 
         handleSaveClick: function() {
           articlesService.update(vm.tmp_article);
-          vm.changeMode();
+          vm.toggleMode();
         },
 
-        changeMode: function() {
+        toggleMode: function() {
           vm.isEditing = !vm.isEditing;
 
           if (vm.isEditing) {
@@ -60,7 +60,7 @@ define(function(require) {
         <ui-toggler-body>
           <div ng-switch="$ctrl.isEditing">
             <div ng-switch-when="false">
-              <button ng-click="$ctrl.changeMode()">Edit</button>
+              <button ng-click="$ctrl.toggleMode()">Edit</button>
               <article-view article="$ctrl.article" />
             </div>
             <div ng-switch-when="true">
