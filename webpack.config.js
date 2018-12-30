@@ -14,7 +14,10 @@ module.exports = {
   entry: "./index.js",
 
   resolve: {
-    extensions: [".js"]
+    extensions: [".js"],
+    alias: {
+      "~": ROOT
+    }
   },
 
   module: {

@@ -12,7 +12,10 @@ module.exports = {
   context: ROOT,
 
   resolve: {
-    extensions: [".js"]
+    extensions: [".js"],
+    alias: {
+      "~": ROOT
+    }
   },
 
   mode: "development",
@@ -71,8 +74,8 @@ module.exports = {
     //     }
     //   }
     // })
-  ],
+  ]
 
-  devtool: "inline-source-map",
-  devServer: {}
+  //devtool: "inline-source-map",
+  //devServer: {}
 };

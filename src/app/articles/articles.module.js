@@ -12,7 +12,7 @@ define(function(require) {
   var articleView = require("./components/article-view");
   var articleForm = require("./components/article-form");
 
-  var togglerComponent = require("../common/toggler");
+  var togglerComponent = require("~/common/toggler");
 
   var mock_articles = require("./mock_articles");
 
