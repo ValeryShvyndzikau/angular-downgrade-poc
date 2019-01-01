@@ -22,31 +22,6 @@ module.exports = {
 
   module: {
     rules: [
-      //   {
-      //     test: /\.ts$/,
-      //     exclude: /node_modules/,
-      //     use: {
-      //       loader: "tslint-loader",
-      //       options: {
-      //         emitErrors: true
-      //       }
-      //     },
-      //     enforce: "pre"
-      //   },
-
-      //   {
-      //     test: /\.ts$/,
-      //     exclude: [/node_modules/],
-      //     use: "awesome-typescript-loader"
-      //   },
-
-      //   {
-      //     test: /\.ts$/,
-      //     exclude: [/node_modules/, /\.spec\.ts$/],
-      //     use: "istanbul-instrumenter-loader",
-      //     enforce: "post"
-      //   },
-
       {
         test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"]
@@ -64,18 +39,5 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    // new LoaderOptionsPlugin({
-    //   debug: true,
-    //   options: {
-    //     tslint: {
-    //       configuration: require("./tslint.json"),
-    //       typeCheck: true
-    //     }
-    //   }
-    // })
-  ]
-
-  //devtool: "inline-source-map",
-  //devServer: {}
+  plugins: []
 };

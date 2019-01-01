@@ -1,5 +1,3 @@
-//var fn = require("../../article.container");
-
 var helloWriter = require("~/common/utils");
 
 describe("Unit test running suite", () => {

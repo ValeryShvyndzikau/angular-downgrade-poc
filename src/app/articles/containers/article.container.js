@@ -9,7 +9,7 @@ define(function(require) {
       onUpdate: "&"
     },
 
-    controller: function Ctrl(articlesService) {
+    controller: function Ctrl(articlesService, $scope) {
       "ngInject";
 
       var vm = this;
@@ -19,6 +19,10 @@ define(function(require) {
       _.assign(vm, {
         $onInit: function() {
           console.log("Article was initialized");
+        },
+
+        $onChanges: function() {
+          console.log($scope, "$scope");
         },
 
         $onDestroy() {
@@ -87,6 +91,30 @@ define(function(require) {
 </toggler>
 
 
+
+      <ui-toggler>
+      
+        <ui-toggler-title>
+        
+          {{$ctrl.article.title}} | <a ng-click="$ctrl.handleRemoveClick()"href="#">Remove</a>
+          value: {{$ctrl.test}}
+        </ui-toggler-title>
+        <ui-toggler-body>
+        
+          <div ng-switch="$ctrl.isEditing">
+            <div ng-switch-when="false">
+              <button ng-click="$ctrl.toggleMode()">Edit</button>
+              <article-view article="$ctrl.article" />
+            </div>
+            <div ng-switch-when="true">
+              <article-form
+                article="$ctrl.tmp_article"
+                on-cancel-click="$ctrl.handleCancelClick()"
+                on-save-click="$ctrl.handleSaveClick()"
+              />
+            </div>
+        </ui-toggler-body>
+      </ui-toggler>
 
 
 

@@ -1,21 +1,31 @@
 define(function(require) {
-  var mock_articles = require("./mock_articles");
+  "use strict";
+
   var EventEmitter = require("events");
 
   class ArticlesService extends EventEmitter {
-    constructor($q, $timeout) {
+    constructor($http) {
       "ng-annotate";
       super();
 
-      this.$timeout = $timeout;
+      this.$http = $http;
       this.articles = [];
     }
 
     get() {
-      this.$timeout(() => {
-        this.articles = mock_articles;
-        this.emitUpdate();
-      }, 1000);
+      this.$http({
+        method: "PUT",
+        url: "http://www.mocky.io/v2/5c2900a53300006000a58bd5?mocky-delay=500ms"
+      }).then(
+        response => {
+          this.articles = response.data;
+          this.emitUpdate();
+        },
+        error => {
+          console.error(error, "error");
+          // this.meassagesService.add({ type: 'error', error.text })
+        }
+      );
     }
 
     update(article) {
