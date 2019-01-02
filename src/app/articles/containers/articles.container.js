@@ -1,3 +1,5 @@
+// https://steelkiwi.com/blog/validation-error-handling-angularjs-applicatios/
+
 define(function(require) {
   "use strict";
 

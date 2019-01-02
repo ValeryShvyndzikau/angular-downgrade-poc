@@ -14,11 +14,10 @@ define(function(require) {
 
       var vm = this;
 
-      vm.isEditing = false;
-
       _.assign(vm, {
         $onInit: function() {
-          console.log("Article was initialized");
+          vm.isEditing = false;
+          //console.log("Article was initialized");
         },
 
         $onChanges: function() {
@@ -37,21 +36,13 @@ define(function(require) {
           vm.toggleMode();
         },
 
-        handleSaveClick: function() {
-          articlesService.update(vm.tmp_article);
+        handleSaveClick: function(updatedArticle) {
+          articlesService.update(updatedArticle);
           vm.toggleMode();
         },
 
         toggleMode: function() {
           vm.isEditing = !vm.isEditing;
-
-          if (vm.isEditing) {
-            vm.createTempArticle();
-          }
-        },
-
-        createTempArticle: function() {
-          vm.tmp_article = _.clone(vm.article);
         }
       });
     },
@@ -69,9 +60,9 @@ define(function(require) {
             </div>
             <div ng-switch-when="true">
               <article-form
-                article="$ctrl.tmp_article"
+                article="$ctrl.article"
                 on-cancel-click="$ctrl.handleCancelClick()"
-                on-save-click="$ctrl.handleSaveClick()"
+                on-save-click="$ctrl.handleSaveClick(updatedArticle)"
               />
             </div>
         </ui-toggler-body>
