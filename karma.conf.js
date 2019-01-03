@@ -3,12 +3,15 @@
 
 module.exports = function(config) {
   config.set({
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: ".",
+    basePath: "",
 
     frameworks: ["jasmine"],
 
-    files: ["./src/app/**/*.spec.js"],
+    files: [
+      "./node_modules/angular/angular.js",
+      "./node_modules/angular-mocks/angular-mocks.js",
+      "./src/app/**/*.spec.js"
+    ],
 
     webpack: require("./webpack-test.config"),
 
@@ -44,10 +47,10 @@ module.exports = function(config) {
 
     plugins: [
       require("karma-jasmine"),
-      require("karma-requirejs"),
+      //require("karma-requirejs"),
       require("karma-chrome-launcher"),
-      require("karma-webpack"),
-      require("karma-sourcemap-loader")
+      require("karma-webpack")
+      //require("karma-sourcemap-loader")
     ]
   });
 };

@@ -1,23 +1,22 @@
 define(function(require) {
-  require("angular");
-  require("angular-mocks");
-
   var ArticlesService = require("./articles.service");
 
   describe("Articles service test suite", () => {
     beforeEach(() => {
-      angular.module("stub", []).service("articlesService", ArticlesService);
-      angular.mock.module("stub");
+      angular
+        .module("articles", [])
+        .service("articlesService", ArticlesService);
+      angular.mock.module("articles");
     });
 
     // prettier-ignore
-    it("Should exist and be available through DI", angular.mock.inject((articlesService, $httpBackend) => {
+    it("Should exist and be available through DI", angular.mock.inject((articlesService) => {
         expect(articlesService).toBeDefined();
       })
     );
 
     // prettier-ignore
-    it("Should has empty articles list by default", angular.mock.inject((articlesService, $httpBackend) => {
+    it("Should has empty articles list by default", angular.mock.inject((articlesService) => {
         expect(articlesService.articles.length).toEqual(0);
       })
     );

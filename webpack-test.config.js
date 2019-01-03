@@ -3,11 +3,6 @@ const webpack = require("webpack");
 const ROOT = path.resolve(__dirname, "src");
 const DESTINATION = path.resolve(__dirname, "dist");
 
-/**
- * Webpack Plugins
- */
-const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
-
 module.exports = {
   context: ROOT,
 

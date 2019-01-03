@@ -21,25 +21,26 @@ define(function() {
         console.log(vm, "Log the form controller...");
       };
 
+      vm.$doCheck = function() {
+        console.log("$doCheck");
+      };
+
       vm.$onChanges = function(changesObj) {
         console.log(changesObj, "changesObj");
       };
     },
 
     template: `
-
       <style type="text/css">
         .article-form input.ng-invalid.ng-touched {
           background-color: red;
         }
-
         .article-form input.ng-valid.ng-touched {
           background-color: #78FA89;
         }
       </style>
 
       <div style="background: #ccc">{{ articleForm | json }}</div>
-
 
       <form name="articleForm" class="article-form">
         <div>

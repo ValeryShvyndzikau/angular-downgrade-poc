@@ -10,7 +10,6 @@ define(function(require) {
     controller: function ArticlesCtrl(
         $q,
         $timeout,
-        mock_articles,
         articlesService
     ) {
       "ngInject";
@@ -21,8 +20,13 @@ define(function(require) {
 
         $onInit: function() {
           // scope.applyAsync() // run updates manually
-          articlesService.on('update', (articles) => { vm.articles = articles })
+          vm.articles = [];
+          articlesService.on('update', vm.updateArticles)
           vm.fetchArticles();
+        },
+
+        updateArticles: function(articles) {
+          vm.articles = articles
         },
 
         fetchArticles: function() {
