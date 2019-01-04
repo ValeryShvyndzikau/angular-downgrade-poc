@@ -11,30 +11,30 @@ define(function(require) {
 
     // prettier-ignore
     it("Should exist and be available through DI", angular.mock.inject((articlesService) => {
-        expect(articlesService).toBeDefined();
-      })
+      expect(articlesService).toBeDefined();
+    })
     );
 
     // prettier-ignore
     it("Should has empty articles list by default", angular.mock.inject((articlesService) => {
-        expect(articlesService.articles.length).toEqual(0);
-      })
+      expect(articlesService.articles.length).toEqual(0);
+    })
     );
 
     // prettier-ignore
     it("Should fetch articles list", angular.mock.inject((articlesService, $httpBackend) => {
 
-        $httpBackend.when(
-          "PUT",
-          "http://www.mocky.io/v2/5c2900a53300006000a58bd5?mocky-delay=500ms"
-        )
+      $httpBackend.when(
+        "PUT",
+        "http://www.mocky.io/v2/5c2900a53300006000a58bd5?mocky-delay=500ms"
+      )
         .respond("STUB_ARTICLES");
 
-        articlesService.get();
-        $httpBackend.flush();
+      articlesService.get();
+      $httpBackend.flush();
 
-        expect(articlesService.articles).toEqual("STUB_ARTICLES");
-      })
+      expect(articlesService.articles).toEqual("STUB_ARTICLES");
+    })
     );
   });
 });
