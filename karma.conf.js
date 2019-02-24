@@ -1,15 +1,21 @@
 // Karma configuration
 // Generated on Fri Dec 28 2018 13:19:39 GMT+0300 (Belarus Standard Time)
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     basePath: "",
 
     frameworks: ["jasmine"],
 
     files: [
+      "./node_modules/jquery/dist/jquery.js",
+
+      "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+      "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+
       "./node_modules/angular/angular.js",
       "./node_modules/angular-mocks/angular-mocks.js",
+
       "./src/app/**/*.spec.js"
     ],
 

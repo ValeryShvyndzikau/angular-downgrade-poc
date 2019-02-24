@@ -4,8 +4,9 @@ const ROOT = path.resolve(__dirname, "src");
 /**
  * Webpack Plugins
  */
+
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
@@ -41,6 +42,11 @@ module.exports = {
       // },
 
       {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      },
+
+      {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
@@ -68,6 +74,10 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: "jquery",
+      $: "jquery"
+    }),
     new HtmlWebpackPlugin({
       title: "AngularJS - Webpack",
       template: "index.html",

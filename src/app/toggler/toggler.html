@@ -1,0 +1,36 @@
+
+<div class="button-group-menu-component btn-group" role="group">
+	<button type="button"
+					aria-disabled="{{isDisabled}}"
+					id="{{id}}_{{options[0].id}}_button"
+					ng-class="{'disabled': isDisabled}"
+					ng-click="handleActionClick(options[0].id, $event)"
+					class="btn group-menu-btn top-bar hidden-xs"
+					aria-label="{{labelsAsKeys ? (options[0].displayName | property) : (options[0].ariaLabel || options[0].displayName)}}">
+		<i ng-class="firstOption.iconLabel"></i>
+	</button>
+	<div class="pull-left separator hidden-xs"></div>
+	<button type="button"
+					aria-disabled="{{isDisabled}}"
+					ng-class="{'disabled': isDisabled}"
+					id="{{id}}_action_button"
+					class="btn group-menu-btn top-bar dropdown-toggle"
+					data-toggle="dropdown"
+					aria-label="{{::actionLabel}}"
+					aria-haspopup="true"
+					aria-expanded="false">
+		<i class="icon-k-group-overflow"></i>
+	</button>
+	<ul class="dropdown-menu" role="menu" aria-labelledby="">
+		<li ng-repeat="option in options" id="{{option.id}}">
+			<a class="btn btn-link dropdown-item"
+				href=#"
+				role="menuitem"
+				ng-bind="labelsAsKeys ? (option.displayName | property) : option.displayName"
+				ng-click="handleActionClick(option.id, $event)"
+				aria-label="{{labelsAsKeys ? (option.displayName | property) : (option.ariaLabel || option.displayName)}}"
+			>
+            </a>
+		</li>
+	</ul>
+</div>

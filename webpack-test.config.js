@@ -1,7 +1,9 @@
 const path = require("path");
-const webpack = require("webpack");
+
 const ROOT = path.resolve(__dirname, "src");
 const DESTINATION = path.resolve(__dirname, "dist");
+
+const webpack = require("webpack");
 
 module.exports = {
   context: ROOT,
@@ -17,6 +19,10 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      },
       {
         test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"]
@@ -34,5 +40,10 @@ module.exports = {
     ]
   },
 
-  plugins: []
+  plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: "jquery",
+      $: "jquery"
+    })
+  ]
 };
